@@ -46,7 +46,7 @@ jobs:
     # устанавливаем зависимости проекта
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip setuptools
+        python -m pip install --upgrade pip setuptools<81
         pip install flake8==6.0.0 flake8-isort==6.0.0
         pip install -r ./backend/requirements.txt
     # Запускаем flake8           Этот шаг дополним:
@@ -57,3 +57,5 @@ jobs:
         python -m flake8 backend/
         cd backend/
         python manage.py test
+
+# python -m pip install --upgrade pip setuptools
