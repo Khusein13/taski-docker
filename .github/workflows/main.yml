@@ -33,6 +33,12 @@ jobs:
       DB_PORT: 5432
 
     steps:
+    - name: Wait for Postgres to be ready
+      run: |
+        until pg_isready -h ${{ env.DB_HOST }} -p ${{ env.DB_PORT }}; do
+          echo "Waiting for postgres..."
+          sleep 2
+        done
     # Копируем код проекта
     - name: Check out code
       uses: actions/checkout@v3
