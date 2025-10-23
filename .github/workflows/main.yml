@@ -8,16 +8,15 @@ on:
 
 jobs:
   tests:
-    # Разворачиваем окружение:
     runs-on: ubuntu-latest
 
     services:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: test_db
+          POSTGRES_USER: limash13
+          POSTGRES_PASSWORD: 123
+          POSTGRES_DB: limash
         ports:
           - 5432:5432
         options: >-
@@ -27,7 +26,11 @@ jobs:
           --health-retries 5
 
     env:
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+      POSTGRES_USER: limash13
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: limash
+      DB_HOST: postgres
+      DB_PORT: 5432
 
     steps:
     # Копируем код проекта
