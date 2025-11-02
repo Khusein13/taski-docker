@@ -1,35 +1,45 @@
-# Файл docker-compose.yml
-
 version: '3'
 
 volumes:
   pg_data:
-  # Новый volume — для статических файлов
   static:
-  
+
+networks:
+  taski_network:
+    driver: bridge
+
 services:
   db:
     image: postgres:13.10
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
+    networks:
+      - taski_network
+
   backend:
     build: ./backend/
     env_file: .env
-    # Тут подключаем volume к backend
     volumes:
       - static:/backend_static
+    networks:
+      - taski_network
+
   frontend:
-    env_file: .env
     build: ./frontend/
+    env_file: .env
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static:/frontend_static
+    networks:
+      - taski_network
+
   gateway:
     build: ./gateway/
     env_file: .env
-    # А тут подключаем volume со статикой к gateway
     volumes:
       - static:/staticfiles
     ports:
       - 8000:80
+    networks:
+      - taski_network
