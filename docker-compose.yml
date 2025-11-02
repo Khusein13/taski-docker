@@ -1,38 +1,28 @@
+# docker-compose.yml
 version: '3'
 
 volumes:
   pg_data:
   static:
 
-networks:
-  taski_network:
-    driver: bridge
-
 services:
   db:
-    image: postgres:13.10
+    image: postgres:13
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
-    networks:
-      - taski_network
-
   backend:
     build: ./backend/
     env_file: .env
     volumes:
       - static:/backend_static
-    networks:
-      - taski_network
 
   frontend:
-    build: ./frontend/
     env_file: .env
+    build: ./frontend/
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static:/frontend_static
-    networks:
-      - taski_network
 
   gateway:
     build: ./gateway/
@@ -41,5 +31,50 @@ services:
       - static:/staticfiles
     ports:
       - 8000:80
-    networks:
-      - taski_network
+      
+
+# version: '3'
+
+# volumes:
+#   pg_data:
+#   static:
+
+# networks:
+#   taski_network:
+#     driver: bridge
+
+# services:
+#   db:
+#     image: postgres:13.10
+#     env_file: .env
+#     volumes:
+#       - pg_data:/var/lib/postgresql/data
+#     networks:
+#       - taski_network
+
+#   backend:
+#     build: ./backend/
+#     env_file: .env
+#     volumes:
+#       - static:/backend_static
+#     networks:
+#       - taski_network
+
+#   frontend:
+#     build: ./frontend/
+#     env_file: .env
+#     command: cp -r /app/build/. /frontend_static/
+#     volumes:
+#       - static:/frontend_static
+#     networks:
+#       - taski_network
+
+#   gateway:
+#     build: ./gateway/
+#     env_file: .env
+#     volumes:
+#       - static:/staticfiles
+#     ports:
+#       - 8000:80
+#     networks:
+#       - taski_network

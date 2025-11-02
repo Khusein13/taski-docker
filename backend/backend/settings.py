@@ -62,16 +62,6 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-# это теперь не нужно
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': '/data/db.sqlite3',
-#     }
-# }
-
-
-# Этими строчками замените текущую настройку DATABASES
 DATABASES = {
     'default': {
         # Меняем настройку Django: теперь для работы будет использоваться
