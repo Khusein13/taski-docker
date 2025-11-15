@@ -19,9 +19,12 @@ services:
   frontend:
     image: limash13/taski_frontend  # Качаем с Docker Hub
     env_file: .env
-    command: cp -r /app/build/. /frontend_static/
+    # command: cp -r /app/build/. /frontend_static/
+    # volumes:
+    #   - static_volume:/frontend_static
+    command: cp -r /app/build/. /staticfiles/
     volumes:
-      - static_volume:/frontend_static
+      - static_volume:/staticfiles
   gateway:
     image: limash13/taski_gateway  # Качаем с Docker Hub
     env_file: .env
